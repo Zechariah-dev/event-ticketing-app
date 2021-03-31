@@ -11,7 +11,8 @@ const userSchema = new Schema({
     },
     email: {
         type: String
-    }
+    },
+    
 });
 
 const userModel = model('user', userSchema);

@@ -1,3 +1,7 @@
+const jwt = require('jsonwebtoken');
+const utf8 = require('utf8');
+const base64 = require('base64');
+
 function generateToken(params) {
     const jwtToken = jwt.sign({
       data: params.email
@@ -10,3 +14,5 @@ function generateToken(params) {
       expiresIn
     };
   }
+
+module.exports = { generateToken };

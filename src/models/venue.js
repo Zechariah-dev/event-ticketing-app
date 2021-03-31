@@ -8,9 +8,13 @@ const venueSchema = new Schema({
         type: String,
         maxlength: 120
     },
+    status: {
+        type: String,
+        enums: ['Active', 'Under Innovation', 'Inactive']
+    },
     slug: String,
-    created_at: Date,
-    updated_at: Date,
+    created_at: { type: String, default: Date.now},
+    updated_at: {type: String, default: Date.now},
     time_zone: String,
     tzinfo: {
         name: String,
