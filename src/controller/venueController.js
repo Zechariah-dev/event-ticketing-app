@@ -20,5 +20,5 @@ const create = async (req, res) => {
         res.json({status: 'failure', error: `A venue already exists with name ${existing_venue.name} and address ${existing_venue.address.address1} `});
     }
 
-    const new_venue =  new Venue({ name, description})
+    const new_venue =  new Venue({ name, description, })
 }

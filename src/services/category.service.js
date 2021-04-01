@@ -37,7 +37,7 @@ class CategoryService {
      * @response cagegories {object}
      */
 
-    static async getCategoryByName(name) {
+    static async getAllCategory() {
         const categories = await Category.find();
 
         if (categories !== undefined) return categories;

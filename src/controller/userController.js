@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/User');
 const Joi = require('joi');
 const _ = require('lodash');
 const userJoiObject = require('../validation/userValidation');
@@ -20,6 +20,5 @@ const create = async (req, res) => {
         return res.status(401).json({status: 'failure', message: `User with ${existing_user.email} already exists`})
     }
 
-    
 
 }
