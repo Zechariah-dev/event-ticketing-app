@@ -8,7 +8,7 @@
      let slug
     const formattedname = name.split(" ").join("-");
     const newdate = new Date;
-    const formaatteddate = newadate.toDateString()
+    const formaatteddate = newdate.toDateString()
                                 .split(" ")
                                 .join("-");
     slug = formattedname + formaatteddate;

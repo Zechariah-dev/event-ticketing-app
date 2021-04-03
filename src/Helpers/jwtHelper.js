@@ -1,20 +1,25 @@
-const jwt = require('jsonwebtoken');
-const utf8 = require('utf8');
-const base64 = require('base64');
-const logger = require('../utils/logger');
-const 
+import jwt from 'jsonwebtoken';
+import utf8 from 'utf8';
+import base64 from 'base64';
+import { serverResponse } from './';
+
+const { JWTEXPIRY, JWT_SECRET } = process.env
+
+/**
+ * @name generateToken
+ * @param {object} payload
+ * @param {String} expiresIn
+ * @return {string} token
+ */
 
 function generateToken(params) {
     const jwtToken = jwt.sign({
       data: params.email
-    }, secret, { expiresIn });
+    }, JWT_SECRET, { JWTEXPIRY });
     const bytes = utf8.encode(jwtToken);
     const token = base64.encode(bytes);
   
-    return {
-      token,
-      expiresIn
-    };
+    return token;
   }
 
   function verifyToken(req, res, next) {
@@ -22,17 +27,22 @@ function generateToken(params) {
       const { token } = req.headers;
 
       if (!token) {
-        return res.status(401).json({message: 'Authorization code is empty'})
+        return serverResponse(401, res, { 
+          message: 'Authorization token is empty'
+        })
       }
   
       const bytes = base64.decode(token);
       const Token = utf8.decode(bytes);
   
-      return jwt.verify(token, secret);
+      return jwt.verify(token, JWT_SECRET);
 
     } catch (error) {
       return next(error);
     }
   }
 
-module.exports = { generateToken };
+export {
+  generateToken,
+  verifyToken
+}
