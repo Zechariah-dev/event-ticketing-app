@@ -1,26 +1,33 @@
 import jwt from 'jsonwebtoken';
 import utf8 from 'utf8';
 import base64 from 'base64';
-import { serverResponse } from './';
+import { serverResponse } from '.';
 
-const { JWTEXPIRY, JWT_SECRET } = process.env
+const { JWT_EXPIRY, JWT_SECRET } = process.env
 
 /**
  * @name generateToken
  * @param {object} payload
- * @param {String} expiresIn
  * @return {string} token
  */
 
-function generateToken(params) {
+function generateToken(payload) {
     const jwtToken = jwt.sign({
-      data: params.email
-    }, JWT_SECRET, { JWTEXPIRY });
+      data: payload.email
+    }, JWT_SECRET, { JWT_EXPIRY });
     const bytes = utf8.encode(jwtToken);
     const token = base64.encode(bytes);
   
     return token;
   }
+
+  /**
+ * @name verifyToken
+ * @param {object} req
+ * @param {object} res
+ * @param {object} next 
+ * @return {string} user.email
+ */
 
   function verifyToken(req, res, next) {
     try {
