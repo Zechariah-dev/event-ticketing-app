@@ -1,33 +1,20 @@
 const { Schema, model } = require('mongoose');
 
 const eventSchema = new Schema({
-    name: {
-        type: String
-    },
-
+    name: String,
     status: {
         type: String,
         enum: ['Past', 'In progress', 'Future'],
         default: 'In progress'
     },
-
     allocated_venue: {
         type: Schema.Types.ObjectId,
         ref: 'venue'
    },
-
-   slug: {
-       type: String
-   },
-
-    start: {
-        type: Date
-    },
-
-    end: {
-        type: Date
-    },
-    published_at: {
+   slug: String,
+   start: Date,
+   end: Date,
+   published_at: {
         type: Date,
         default: Date.now
     }
