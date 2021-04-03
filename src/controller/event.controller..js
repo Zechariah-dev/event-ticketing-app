@@ -24,8 +24,6 @@ class Event {
 
             const slug = generateSlug(name);
 
-            if(!s)
-
             const newEvent = new Event({name, start, date, status,allocated_venue, slug});
 
             return serverResponse(201, res, {
