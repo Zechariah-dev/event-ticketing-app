@@ -5,12 +5,10 @@
  */
 
  const generateSlug = (name) => {
-     let slug
-    const formattedname = name.split(" ").join("-");
-    const newdate = new Date;
-    const formaatteddate = newdate.toDateString()
-                                .split(" ")
-                                .join("-");
+    let slug;
+    let formattedname = name.split(" ").join("-");
+    let newdate = new Date();
+    let formaatteddate = newdate.toDateString().split(" ").join("-");
     slug = formattedname + formaatteddate;
     return slug;
  };

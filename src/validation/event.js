@@ -9,6 +9,6 @@ const eventJoiSchema = Joi.object({
                 .default('In progress'),
     start: Joi.date(),
     end: Joi.date(),
-})
+});
 
 export default  eventJoiSchema;

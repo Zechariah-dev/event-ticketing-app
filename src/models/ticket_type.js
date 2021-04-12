@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const { Schema, model } = mongoose;
 
@@ -35,8 +35,8 @@ const tickeTypeSchema = new Schema({
         type: Boolean,
         default: false
     }
-})
+});
 
-const tickeTypeModel = model(ticket_type, tickeTypeSchema);
+const ticketTypeModel = model(ticket_type, tickeTypeSchema);
 
-module.exports = tickeTypeModel;
+module.exports = ticketTypeModel;

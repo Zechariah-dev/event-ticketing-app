@@ -1,5 +1,5 @@
 import { Venue, Event } from "../models";
-import { serverResponse, serverError, generateSlug } from "../helpers";
+import { serverResponse, serverError, generateSlug, compareDate} from "../helpers";
 
 
 class Event {
@@ -18,17 +18,27 @@ class Event {
             if(!allocated_venue) {
                 return serverResponse(401, res, {
                     status: 'failure',
-                    message: `venue ${id} doesn\'t exist`
+                    message: `venue ${id} not found`
                 })
             }   
 
+            const com_date = compareDate(start, end).valid;
+
+            if(!com_date) {
+                return serverResponse(res, 401, {
+                    status: 'failure',
+                    error: com_date.error
+
+                })
+            }
+
             const slug = generateSlug(name);
 
-            const newEvent = new Event({name, start, date, status,allocated_venue, slug});
+            const new_event = new Event({name, start, date, status,allocated_venue, slug});
 
             return serverResponse(201, res, {
                 message: `${name} created successfully`,
-                data: newEvent
+                data: new_event
             })
 
         } catch (error) {
@@ -36,4 +46,10 @@ class Event {
         }
     };
 
+    /**
+     * @name 
+     */
+
 }
+
+export default Event;

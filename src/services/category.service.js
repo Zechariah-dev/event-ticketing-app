@@ -1,4 +1,4 @@
-import Category from '../models/category'
+import Category from '../models/category';
 
 class CategoryService {
 
@@ -13,7 +13,7 @@ class CategoryService {
         const category = await Category.findById(id);
 
         if (category !== undefined) return category;
-        return {}
+        return {};
     }
 
 
@@ -28,7 +28,7 @@ class CategoryService {
         const category = await Category.findOne({name: name});
 
         if (category !== undefined) return category;
-        return {}
+        return {};
     }
 
     /***
@@ -38,10 +38,10 @@ class CategoryService {
      */
 
     static async getAllCategory() {
-        const categories = await Category.find();
+        const categories = await Category.find({});
 
         if (categories !== undefined) return categories;
-        return {}
+        return {};
     }
 
     /***
@@ -55,7 +55,7 @@ class CategoryService {
         const category = await Category.findByIdAndDelete(id);
 
         if (category !== undefined) return category;
-        return {}
+        return {};
     }
 
 }

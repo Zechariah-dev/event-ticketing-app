@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+import { Schema, model } from 'mongoose';
 
 const eventSchema = new Schema({
     name: String,
@@ -11,6 +11,14 @@ const eventSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'venue'
    },
+   ticket_type: {
+       type: Schema.Types.ObjectId,
+       ref: 'ticket_types'
+   },
+   categories: [{
+       type: Schema.Types.ObjectId,
+       ref: 'categories'
+   }],
    slug: String,
    start: Date,
    end: Date,
@@ -18,9 +26,15 @@ const eventSchema = new Schema({
         type: Date,
         default: Date.now
     }
-})
+}, {
+    timestamps: true
+});
 
 
-const eventModel = model('event', eventSchema)
+eventSchema.method.setStatus = function() {
+    const event = this;
+};
 
-module.exports  = eventModel;
+const eventModel = model('event', eventSchema);
+
+export default eventModel;

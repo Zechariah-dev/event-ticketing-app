@@ -32,7 +32,7 @@ class Categories {
 
             return serverResponse(res, 200, {
                 message: `${name} created successfully`,
-                data: {...newCategory}
+                data: newCatergory
             });
         } catch(error) {
             serverError(res);
@@ -54,12 +54,12 @@ class Categories {
             if (!category) {
                 return serverResponse(res, 401, {
                     message: `${id} does not exist`
-                })
+                });
             }
 
             return serverResponse(res, 201, {
                 data: category
-            })
+            });
 
          } catch (error) {
              serverError(res);
@@ -79,12 +79,12 @@ class Categories {
              if (!categories) {
                  return serverResponse(res, 401, {
                      message: 'No category found'
-                 })
+                 });
              }
 
              return serverResponse(res, 200, {
                  data: categories
-             })
+             });
          } catch (error) {
              serverError(res);
          }
@@ -104,7 +104,10 @@ class Categories {
             const deletedCategory = await CategoryService.deleteCategory(id);
 
             if (!deletedCategory) {
-                return serverResponse()
+                return serverResponse(res, 401, {
+                    status: 'failure',
+                    message: `${id} category not found`
+                });
             }
          } catch (error) {
              serverError(res);
@@ -128,28 +131,28 @@ class Categories {
 
             if (!categorydoc) {
                 return serverResponse(res, 401, {
-                    message: `${id} is an invalid id`
-                })
+                    message: `${id} category not found`
+                });
             }
 
-            let current = new Date
-            current = current.toISOString()
+            let current = new Date();
+            current = current.toISOString();
 
             categorydoc.name = name;
             categorydoc.subtitle = subtitle;
             categorydoc.description = description;
-            categorydoc.updatedAt = current
+            categorydoc.updatedAt = current;
 
             await categorydoc.save();
 
             return serverResponse(res, 201, {
                 message: `${name} updated succefully`,
                 data: categorydoc
-            })
+            });
 
 
          } catch (error) {
-             serverError(res)
+             serverError(res);
          }
     }
 

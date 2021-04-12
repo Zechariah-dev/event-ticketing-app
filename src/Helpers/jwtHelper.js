@@ -1,9 +1,7 @@
 import jwt from 'jsonwebtoken';
-import utf8 from 'utf8';
-import base64 from 'base64';
-import { serverResponse } from '.';
+import { serverResponse } from './serverResponse';
 
-const { JWT_EXPIRY, JWT_SECRET } = process.env
+const { JWT_EXPIRY, JWT_SECRET } = process.env;
 
 /**
  * @name generateToken
@@ -15,10 +13,9 @@ function generateToken(payload) {
     const jwtToken = jwt.sign({
       data: payload.email
     }, JWT_SECRET, { JWT_EXPIRY });
-    const bytes = utf8.encode(jwtToken);
-    const token = base64.encode(bytes);
+    
   
-    return token;
+    return jwtToken;
   }
 
   /**
@@ -36,11 +33,8 @@ function generateToken(payload) {
       if (!token) {
         return serverResponse(401, res, { 
           message: 'Authorization token is empty'
-        })
+        });
       }
-  
-      const bytes = base64.decode(token);
-      const Token = utf8.decode(bytes);
   
       return jwt.verify(token, JWT_SECRET);
 
@@ -52,4 +46,4 @@ function generateToken(payload) {
 export {
   generateToken,
   verifyToken
-}
+};

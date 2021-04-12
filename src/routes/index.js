@@ -1,9 +1,9 @@
 import express from 'express';
 
-import category from './category.route';
+import category from './category.js';
 
-const routes = express();
+const route = express.Router();
 
-routes.use('/category', category);
+route.use('/category', category);
 
-export default routes;
+export default route;
